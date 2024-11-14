@@ -19,20 +19,18 @@ public class Enemy : MonoBehaviour
         
     }
 
-    private void OnTriggerEnter2D(Collider2D whatIHit)
+    private void OnTriggerEnter2D(Collider2D whatDidIHit)
     {
-        if (whatIHit.tag == "Player")
+        if (whatDidIHit.tag == "Player")
         {
-            //I hit the Player!
-            whatIHit.GetComponent<Player>().LoseALife();
+            GameObject.Find("Player(Clone)").GetComponent<Player>().LoseALife();
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
-        } else if (whatIHit.tag == "Weapon")
+        } else if (whatDidIHit.tag == "Weapon")
         {
-            //I am shot!
             GameObject.Find("GameManager").GetComponent<GameManager>().EarnScore(5);
+            Destroy(whatDidIHit.gameObject);
             Instantiate(explosion, transform.position, Quaternion.identity);
-            Destroy(whatIHit.gameObject);
             Destroy(this.gameObject);
         }
     }

@@ -2,60 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 
     public GameObject player;
-    public GameObject enemyOne;
+    public GameObject enemy;
     public GameObject cloud;
-    public GameObject powerup;
-
-    public AudioClip powerUp;
-    public AudioClip powerDown;
-
-    public int cloudSpeed;
-
-    private bool isPlayerAlive;
+    private int score;
+    private int lives;
 
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI gameOverText;
-    public TextMeshProUGUI restartText;
-    public TextMeshProUGUI powerupText;
-
-    private int score;
+    public TextMeshProUGUI livesText;
 
     // Start is called before the first frame update
     void Start()
     {
         Instantiate(player, transform.position, Quaternion.identity);
-        InvokeRepeating("CreateEnemyOne", 1f, 3f);
-        StartCoroutine(CreatePowerup());
+        InvokeRepeating("CreateEnemy", 1f, 3f);
         CreateSky();
         score = 0;
+        lives = player.GetComponent<Player>().lives;
         scoreText.text = "Score: " + score;
-        isPlayerAlive = true;
-        cloudSpeed = 1;
+        livesText.text = "Lives: " + lives;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Restart();   
+
     }
 
-    void CreateEnemyOne()
+    void CreateEnemy()
     {
-        Instantiate(enemyOne, new Vector3(Random.Range(-9f, 9f), 7.5f, 0), Quaternion.Euler(0, 0, 180));
-    }
-
-    IEnumerator CreatePowerup()
-    {
-        Instantiate(powerup, new Vector3(Random.Range(-9f, 9f), 7.5f, 0), Quaternion.identity);
-        yield return new WaitForSeconds(Random.Range(3f, 6f));
-        StartCoroutine(CreatePowerup());
+        Instantiate(enemy, new Vector3(Random.Range(-9f, 9f), 7.5f, 0), Quaternion.identity);
     }
 
     void CreateSky()
@@ -66,41 +47,13 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void EarnScore(int newScore)
-    {
-        score = score + newScore;
+    public void EarnScore(int howMuch) 
+    {  
+        score = score + howMuch;
         scoreText.text = "Score: " + score;
     }
-
-    public void GameOver()
-    {
-        isPlayerAlive = false;
-        CancelInvoke();
-        gameOverText.gameObject.SetActive(true);
-        restartText.gameObject.SetActive(true);
-        cloudSpeed = 0;
-    }
-
-    void Restart()
-    {
-        if(Input.GetKeyDown(KeyCode.R) && isPlayerAlive == false)
-        {
-            SceneManager.LoadScene("Game");
-        }
-    }
-
-    public void UpdatePowerupText(string whichPowerup)
-    {
-        powerupText.text = whichPowerup;
-    }
-
-    public void PlayPowerUp()
-    {
-        AudioSource.PlayClipAtPoint(powerUp, Camera.main.transform.position);
-    }
-
-    public void PlayPowerDown()
-    {
-        AudioSource.PlayClipAtPoint(powerDown, Camera.main.transform.position);
+    public void LivesCounter(int newLife) 
+    {  
+        livesText.text = "Lives: " + newLife;
     }
 }
