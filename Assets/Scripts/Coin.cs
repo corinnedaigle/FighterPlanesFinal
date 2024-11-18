@@ -15,7 +15,7 @@ public class Coin : MonoBehaviour
     }
 
     // Player picks up the coin
-    private void PlayerPickUp(Collider2D collision)
+    public void PlayerPickUp(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {

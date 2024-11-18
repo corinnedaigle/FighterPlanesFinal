@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
 
     private void CoinAppear()
     {
-        Instantiate(coin, new Vector3(Random.Range(-8f, 8f), 4f, 0), Quaternion.identity);
+        Instantiate(coin, new Vector3(Random.Range(-8f, 8f), 2f, 0), Quaternion.identity);
     }
 
     public void EarnScore(int newScore)

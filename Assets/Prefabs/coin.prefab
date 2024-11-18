@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3117422881169043937}
   - component: {fileID: 9054871091037488661}
   - component: {fileID: 1403614858085131118}
+  - component: {fileID: 8602120939405706136}
   m_Layer: 0
   m_Name: coin
   m_TagString: Untagged
@@ -77,7 +78,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1184627942063122831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97e656f70e8e43342a009659c9289ded, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c5d0ae814ee17d4cb6aedfee4fa8ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   screentime: 4
@@ -154,3 +155,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!50 &8602120939405706136
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184627942063122831}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
