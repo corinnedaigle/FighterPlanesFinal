@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject enemyTwo;
     public GameObject cloud;
     public GameObject powerup;
+    public GameObject coin;
 
     public AudioClip powerUp;
     public AudioClip powerDown;
@@ -44,6 +45,7 @@ public class GameManager : MonoBehaviour
         livesText.text = "Lives: " + lives;
         isPlayerAlive = true;
         cloudSpeed = 1;
+        CoinAppear();
     }
 
     // Update is called once per frame
@@ -57,9 +59,9 @@ public class GameManager : MonoBehaviour
         Instantiate(enemyOne, new Vector3(Random.Range(-9f, 9f), 7.5f, 0), Quaternion.Euler(0, 0, 180));
     }
 
-         void CreateEnemyTwo()
+    void CreateEnemyTwo()
     {
-        Instantiate(enemyTwo, new Vector3(12f, Random.Range(-6f, 6f), 0), Quaternion.Euler(0, 0, 90));
+        Instantiate(enemyTwo, new Vector3(12f, Random.Range(0f, 6f), 0), Quaternion.Euler(0, 0, 90));
     }
 
     IEnumerator CreatePowerup()
@@ -77,13 +79,18 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void CoinAppear()
+    {
+        Instantiate(coin, new Vector3(Random.Range(-8f, 8f), 4f, 0), Quaternion.identity);
+    }
+
     public void EarnScore(int newScore)
     {
         score = score + newScore;
         scoreText.text = "Score: " + score;
     }
 
-      public void LivesCounter(int newLife) 
+    public void LivesCounter(int newLife) 
     {  
         livesText.text = "Lives: " + newLife;
     }
@@ -119,4 +126,6 @@ public class GameManager : MonoBehaviour
     {
         AudioSource.PlayClipAtPoint(powerDown, Camera.main.transform.position);
     }
+
+
 }

@@ -8,10 +8,11 @@ public class Player : MonoBehaviour
 
     private float horizontalInput;
     private float verticalInput;
-    private float horizontalScreenSize = 11.5f;
-    private float verticalScreenSize = 7.5f;
     private float speed;
     public int lives;
+    float MaxdistanceY = 0f;
+    float MindistanceY = -4f;
+    private int score = 0;
     private int shooting;
     private bool hasShield;
 
@@ -44,14 +45,19 @@ public class Player : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         transform.Translate(new Vector3(horizontalInput, verticalInput,0) * Time.deltaTime * speed);
-        if (transform.position.x > horizontalScreenSize || transform.position.x <= -horizontalScreenSize)
+        if (transform.position.x > 11.5f || transform.position.x <= -11.5f)
         {
             transform.position = new Vector3(transform.position.x * -1, transform.position.y, 0);
         }
-        if (transform.position.y > verticalScreenSize || transform.position.y < -verticalScreenSize)
-        {
-            transform.position = new Vector3(transform.position.x, transform.position.y * -1, 0);
-        }
+        
+        float clampedY = Mathf.Clamp(transform.position.y, MindistanceY, MaxdistanceY);
+        transform.position = new Vector3(transform.position.x, clampedY, 0);
+    }
+
+    public void EarnScore(int amount)
+    {
+        score += amount;
+        Debug.Log("Score: " + score);
     }
 
     void Shooting()
@@ -113,7 +119,7 @@ public class Player : MonoBehaviour
         gameManager.UpdatePowerupText("");
     }
 
-      IEnumerator ShieldPowerDown()
+     IEnumerator ShieldPowerDown()
     {
         yield return new WaitForSeconds(3f);
         hasShield = false;
@@ -146,7 +152,7 @@ public class Player : MonoBehaviour
                     //triple shot
                     shooting = 3;
                     gameManager.UpdatePowerupText("Picked up Triple Shot!");
-                    
+                    StartCoroutine(ShootingPowerDown());
                     break;
                 case 4:
                     //shield
@@ -154,6 +160,39 @@ public class Player : MonoBehaviour
                     gameManager.UpdatePowerupText("Picked up Shield!");
                     shield.gameObject.SetActive(true);
                     StartCoroutine(ShieldPowerDown());
+                    break;
+            }
+            Destroy(whatIHit.gameObject);
+        }
+        if(whatIHit.tag == "Powerup")
+        {
+            gameManager.PlayPowerDown();
+            int powerupType = Random.Range(1, 5); //this can be 1, 2, 3, or 4
+            switch(powerupType)
+            {
+                case 1:
+                    //speed powerup
+                    speed = 9f;
+                    gameManager.UpdatePowerupText("Picked up Speed!");
+                    thruster.gameObject.SetActive(true);
+                    StartCoroutine(SpeedPowerDown());
+                    break;
+                case 2:
+                    //double shot
+                    shooting = 2;
+                    gameManager.UpdatePowerupText("Picked up Double Shot!");
+                    StartCoroutine (ShootingPowerDown());
+                    break;
+                case 3:
+                    //triple shot
+                    shooting = 3;
+                    gameManager.UpdatePowerupText("Picked up Triple Shot!");
+                    StartCoroutine(ShootingPowerDown());
+                    break;
+                case 4:
+                    //shield
+                    gameManager.UpdatePowerupText("Picked up Shield!");
+                    hasShield = true;
                     break;
             }
             Destroy(whatIHit.gameObject);

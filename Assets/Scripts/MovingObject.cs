@@ -49,9 +49,9 @@ public class MovingObject : MonoBehaviour
             transform.position = new Vector3(Random.Range(-12f, 12f), 9f, 0);
         }
 
-        if (transform.position.y <= -6f && whatAmI == 5)
+        if (transform.position.y <= 0f && whatAmI == 5)
         {
-            transform.position = new Vector3(6f, Random.Range(-9f, 9f), 0);
+            transform.position = new Vector3(6f, Random.Range(0f, 9f), 0);
         }
     }
 }
