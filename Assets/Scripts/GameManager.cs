@@ -10,11 +10,10 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public GameObject enemy;
     public GameObject cloud;
+    public GameObject coin;
     private int score;
-    private int lives;
 
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI livesText;
 
     // Start is called before the first frame update
     void Start()
@@ -23,15 +22,14 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("CreateEnemy", 1f, 3f);
         CreateSky();
         score = 0;
-        lives = player.GetComponent<Player>().lives;
         scoreText.text = "Score: " + score;
-        livesText.text = "Lives: " + lives;
+        CoinAppear();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     void CreateEnemy()
@@ -47,13 +45,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+     private void CoinAppear()
+    {
+        Instantiate(coin, new Vector3(Random.Range(-8f, 8f), 4f, 0), Quaternion.identity);
+    }
+
     public void EarnScore(int howMuch) 
     {  
         score = score + howMuch;
         scoreText.text = "Score: " + score;
     }
-    public void LivesCounter(int newLife) 
-    {  
-        livesText.text = "Lives: " + newLife;
-    }
+
 }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
 public class Player : MonoBehaviour
 {
 
@@ -15,7 +14,8 @@ public class Player : MonoBehaviour
 
     public GameObject explosion;
     public GameObject bullet;
-    public int lives;
+    private int lives;
+    private int score = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +56,12 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void EarnScore(int amount)
+    {
+        score += amount;
+        Debug.Log("Score: " + score);
+    }
+
     public void LoseALife()
     {
         //lives = lives - 1;
@@ -66,6 +72,5 @@ public class Player : MonoBehaviour
             Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(this.gameObject);
         }
-        GameObject.Find("GameManager").GetComponent<GameManager>().LivesCounter(lives);
     }
 }
