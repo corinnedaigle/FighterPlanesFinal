@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4df37b943e4ea944abdac8a534918325
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - player: {instanceID: 0}
+  - enemyOne: {instanceID: 0}
+  - cloud: {instanceID: 0}
+  - powerup: {instanceID: 0}
+  - powerUp: {fileID: 8300000, guid: 12eb5098f95443647a547ce772275db3, type: 3}
+  - powerDown: {fileID: 8300000, guid: 279927ee4464bab49b4ffa0f41d50c69, type: 3}
+  - scoreText: {instanceID: 0}
+  - gameOverText: {instanceID: 0}
+  - restartText: {instanceID: 0}
+  - powerupText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
